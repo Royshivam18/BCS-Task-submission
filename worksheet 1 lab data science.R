@@ -60,3 +60,34 @@ points(di[3,1],di[3,2],col = "white")
 
 #Q3
 dog
+# html
+library(tidyverse)
+library(rvest)
+html <- read_html("https://www.iitk.ac.in/math/faculty")
+name <- html_elements(html, ".head3")
+name <- html_elements(name, "a")
+name <- html_text(name)
+name <- html_elements(html, ".head3 a")
+name <- html_text(name)
+name <- html %>% html_elements(".head3 a") %>% html_text()
+
+
+#q1
+file <- read_html("https://www.iitk.ac.in/math/visitors-post-doctoral-fellow")
+phd <- html_elements(file, ".head2")%>%html_text()
+
+
+#q2
+movies <- read_html("https://www.imdb.com/chart/top/")
+movies.name <- html_elements(movies,".titleColumn a")%>%html_text()
+imdb <- as.data.frame(movies.name)
+movies.year <- html_elements(movies,".secondaryInfo")%>%html_text()
+imdb$name <- as.data.frame(movies.rating)
+movies.rating <- html_elements(movies,"posterColumn")%>%html_text()
+movies.votes <- html_elements(movies,css = ".ratingColumn strong")%>%html_attr('title')
+movies.votes <- html_elements(movies,css = ".posterColumn")
+
+substring(movies.year)
+movies.rating = as.numeric(movies.rating)
+movies.year = gsub("()", "", movies.year)
+movies.year = as.numeric(movies.year)
